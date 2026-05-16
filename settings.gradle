@@ -1,5 +1,10 @@
 pluginManagement {
     repositories {
+        // 加上这个，专门用来下载核心缺少的 Forge 工具链组件
+        maven {
+            name = 'Minecraft Forge'
+            url = 'https://maven.minecraftforge.net/'
+        }
         maven {
             name = 'Fabric'
             url = 'https://maven.fabricmc.net/'
