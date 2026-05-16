@@ -1,6 +1,5 @@
 name: check-does-build
 
-# 1. 增加了 workflow_dispatch 以支持手动触发
 on:
   push:
   workflow_dispatch:
@@ -32,13 +31,15 @@ jobs:
           cache-read-only: false
           cache-cleanup: never
 
-      # 2. 增加保存构建产物的步骤
+      # ====== 就是少了这一步！必须先编译，才能生成文件 ======
+      - name: Gradle build
+        run: ./gradlew build
+
+      # ====== 编译完后，再去上传保存 ======
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: build-artifacts
           path: |
             **/build/libs/*.jar
-          # 如果你还需要保存其他文件（例如 log、exe 等），可以在 path 下继续添加
-          # 如果想保存整个 build 目录，可以直接写 **/build/
-          retention-days: 5 # 文件的保存天数（默认 90 天，这里设置为 5 天以节省空间）
+          retention-days: 5
