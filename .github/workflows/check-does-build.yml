@@ -32,9 +32,6 @@ jobs:
           cache-read-only: false
           cache-cleanup: never
 
-      - name: Gradle build
-        run: ./gradlew -I init.gradle build
-
       # 2. 增加保存构建产物的步骤
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
